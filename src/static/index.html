@@ -16,7 +16,55 @@
       <section id="activities-container">
         <h3>Available Activities</h3>
         <div id="activities-list">
-          <!-- Activities will be loaded here -->
+          <!-- Activities will be loaded here -->          <style>
+            ul#participants {
+              list-style-type: none;
+              padding: 0;
+            }
+            .participant-item {
+              display: flex;
+              align-items: center;
+              margin-bottom: 0.5em;
+            }
+            .delete-btn {
+              background: none;
+              border: none;
+              color: #c00;
+              font-size: 1.2em;
+              margin-left: 0.5em;
+              cursor: pointer;
+            }
+            .delete-btn:hover {
+              color: #f00;
+            }
+          </style>
+          
+          <ul id="participants">
+            <li class="participant-item" data-id="1">
+              Alice
+              <button class="delete-btn" title="Remove">&#128465;</button>
+            </li>
+            <li class="participant-item" data-id="2">
+              Bob
+              <button class="delete-btn" title="Remove">&#128465;</button>
+            </li>
+            <li class="participant-item" data-id="3">
+              Charlie
+              <button class="delete-btn" title="Remove">&#128465;</button>
+            </li>
+          </ul>
+          
+          <script>
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+              btn.addEventListener('click', function() {
+                const li = this.closest('.participant-item');
+                const participantId = li.getAttribute('data-id');
+                // Optionally, make an API call here to unregister on the server:
+                // fetch(`/unregister/${participantId}`, { method: 'POST' });
+                li.remove();
+              });
+            });
+          </script>
           <p>Loading activities...</p>
         </div>
 
@@ -64,4 +112,53 @@
 
     <script src="app.js"></script>
   </body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Participants</title>
+  <style>
+    ul#participants {
+      list-style-type: none;
+      padding: 0;
+    }
+    .participant-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+    }
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #c00;
+      font-size: 1.2em;
+      margin-left: 0.5em;
+      cursor: pointer;
+    }
+    .delete-btn:hover {
+      color: #f00;
+    }
+  </style>
+</head>
+<body>
+  <h1>Participants</h1>
+  <ul id="participants">
+    <li class="participant-item" data-id="1">Alice <button class="delete-btn" title="Remove">&#128465;</button></li>
+    <li class="participant-item" data-id="2">Bob <button class="delete-btn" title="Remove">&#128465;</button></li>
+    <li class="participant-item" data-id="3">Charlie <button class="delete-btn" title="Remove">&#128465;</button></li>
+    <!-- Add more participants as needed -->
+  </ul>
+  <script>
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const li = this.closest('.participant-item');
+        const participantId = li.getAttribute('data-id');
+        // Optionally, make an API call here to unregister on the server:
+        // fetch(`/unregister/${participantId}`, { method: 'POST' });
+        li.remove();
+      });
+    });
+  </script>
+</body>
 </html>
