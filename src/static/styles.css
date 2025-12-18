@@ -63,6 +63,7 @@ section h3 {
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(26, 35, 126, 0.05);
 }
 
 .activity-card h4 {
@@ -141,4 +142,50 @@ footer {
   margin-top: 30px;
   padding: 20px;
   color: #666;
+}
+
+/* Participants section styling */
+.participants-section {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #e0e0e0;
+}
+
+.participants-section h5 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Bulleted list reset + inline "tag" style for participants */
+.participants-list {
+  list-style: disc;
+  margin-left: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-left: 6px;
+}
+
+.participants-list li {
+  background: #f1f5ff;
+  color: #102a8a;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 13px;
+  border: 1px solid rgba(17, 24, 96, 0.06);
+  list-style: none; /* remove default dot since we render badges */
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset;
+}
+
+/* small-screen adjustment so badges wrap nicely */
+@media (max-width: 480px) {
+  .participants-list {
+    gap: 6px;
+  }
+  .participants-list li {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
 }
