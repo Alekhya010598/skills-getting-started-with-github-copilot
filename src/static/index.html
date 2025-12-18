@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mergington High School Activities</title>
     <link rel="stylesheet" href="styles.css" />
+      <style>
+        /* Hide bullets for participants rendered into activity cards */
+        .participants-list { list-style: none; padding: 0; margin: 0; }
+        .participants-list li { display:flex; align-items:center; justify-content:space-between; padding:.25rem 0; border-bottom:1px solid transparent; }
+        .participant-item .label { flex:1; }
+        .delete-btn { background: transparent; border: none; color: #c00; cursor: pointer; padding: .15rem; font-size: 1rem; }
+        .delete-btn:hover { color: #900; }
+      </style>
   </head>
   <body>
     <header>
@@ -16,55 +24,7 @@
       <section id="activities-container">
         <h3>Available Activities</h3>
         <div id="activities-list">
-          <!-- Activities will be loaded here -->          <style>
-            ul#participants {
-              list-style-type: none;
-              padding: 0;
-            }
-            .participant-item {
-              display: flex;
-              align-items: center;
-              margin-bottom: 0.5em;
-            }
-            .delete-btn {
-              background: none;
-              border: none;
-              color: #c00;
-              font-size: 1.2em;
-              margin-left: 0.5em;
-              cursor: pointer;
-            }
-            .delete-btn:hover {
-              color: #f00;
-            }
-          </style>
-          
-          <ul id="participants">
-            <li class="participant-item" data-id="1">
-              Alice
-              <button class="delete-btn" title="Remove">&#128465;</button>
-            </li>
-            <li class="participant-item" data-id="2">
-              Bob
-              <button class="delete-btn" title="Remove">&#128465;</button>
-            </li>
-            <li class="participant-item" data-id="3">
-              Charlie
-              <button class="delete-btn" title="Remove">&#128465;</button>
-            </li>
-          </ul>
-          
-          <script>
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-              btn.addEventListener('click', function() {
-                const li = this.closest('.participant-item');
-                const participantId = li.getAttribute('data-id');
-                // Optionally, make an API call here to unregister on the server:
-                // fetch(`/unregister/${participantId}`, { method: 'POST' });
-                li.remove();
-              });
-            });
-          </script>
+          <!-- Activities will be loaded here -->
           <p>Loading activities...</p>
         </div>
 
@@ -128,37 +88,6 @@
       align-items: center;
       margin-bottom: 0.5em;
     }
-    .delete-btn {
-      background: none;
-      border: none;
-      color: #c00;
-      font-size: 1.2em;
-      margin-left: 0.5em;
-      cursor: pointer;
-    }
-    .delete-btn:hover {
-      color: #f00;
-    }
-  </style>
-</head>
-<body>
-  <h1>Participants</h1>
-  <ul id="participants">
-    <li class="participant-item" data-id="1">Alice <button class="delete-btn" title="Remove">&#128465;</button></li>
-    <li class="participant-item" data-id="2">Bob <button class="delete-btn" title="Remove">&#128465;</button></li>
-    <li class="participant-item" data-id="3">Charlie <button class="delete-btn" title="Remove">&#128465;</button></li>
-    <!-- Add more participants as needed -->
-  </ul>
-  <script>
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const li = this.closest('.participant-item');
-        const participantId = li.getAttribute('data-id');
-        // Optionally, make an API call here to unregister on the server:
-        // fetch(`/unregister/${participantId}`, { method: 'POST' });
-        li.remove();
-      });
-    });
-  </script>
-</body>
-</html>
+      </body>
+      <script src="app.js"></script>
+    </html>

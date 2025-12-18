@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     while (node.firstChild) node.removeChild(node.firstChild);
   }
 
-  function renderParticipantsList(listEl, participants) {
+  function renderParticipantsList(listEl, participants, activityName) {
     clearChildren(listEl);
     if (!participants || participants.length === 0) {
       const li = document.createElement("li");
@@ -46,7 +46,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     participants.forEach((p) => {
       const li = document.createElement("li");
-      li.textContent = p;
+      li.className = 'participant-item';
+      // p might be a string (email) or an object; support both
+      const email = typeof p === 'string' ? p : (p.email || p.id || String(p));
+      const label = document.createElement('span');
+      label.className = 'label';
+      label.textContent = email;
+      li.appendChild(label);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'delete-btn';
+      btn.setAttribute('aria-label', 'Remove participant');
+      btn.textContent = '🗑️';
+      li.appendChild(btn);
+
+      // delete handler: try to unregister via API, then refresh
+      btn.addEventListener('click', async () => {
+        try {
+          const url = `${apiBase}/${encodeURIComponent(activityName)}/unregister?email=${encodeURIComponent(email)}`;
+          const resp = await fetch(url, { method: 'POST' });
+          if (!resp.ok) {
+            // try DELETE as fallback
+            await fetch(url, { method: 'DELETE' });
+          }
+          await refresh();
+        } catch (err) {
+          // on network error, optimistically remove item from DOM
+          li.remove();
+        }
+      });
+
       listEl.appendChild(li);
     });
   }
@@ -89,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const scheduleNode = sched;
         scheduleNode.innerHTML = `<strong>Schedule:</strong> ${data.schedule || ""}`;
       }
-      renderParticipantsList(participantsList, data.participants);
+      renderParticipantsList(participantsList, data.participants, name);
       el.activitiesList.appendChild(card);
     });
   }
